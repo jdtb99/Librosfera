@@ -21,3 +21,4 @@ yarn-error.log*
 
 #Archivos subidos por usuarios
 Backend/uploads/
+DEPLOY_NOTES.md

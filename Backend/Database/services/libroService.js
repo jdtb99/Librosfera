@@ -6,6 +6,7 @@ const Busqueda = require('../models/busquedaModel');
 const fs = require('fs').promises;
 const path = require('path');
 const TiendaFisica = require('../models/tiendaFisicaModel');
+const { deleteObject, extractKeyFromUrl, buildKey } = require('../../src/utils/s3Client');
 
 /**
  * Servicio de Libros - Encapsula la lógica de negocio y acceso a datos para libros
@@ -2654,6 +2655,7 @@ const libroService = {
       const ordenEliminado = libro.imagenes[imagenIndex].orden;
       const tipoEliminado = libro.imagenes[imagenIndex].tipo;
       const nombreArchivo = libro.imagenes[imagenIndex].nombre_archivo;
+      const urlEliminada = libro.imagenes[imagenIndex].url;
       
       // Eliminar la imagen utilizando splice
       libro.imagenes.splice(imagenIndex, 1);
@@ -2692,16 +2694,21 @@ const libroService = {
       libro.markModified('imagenes');
       await libro.save();
       
-      // Eliminar archivo físico
+      // Eliminar archivo de S3 (si la imagen vive en nuestro bucket)
       try {
-        if (nombreArchivo) {
-          const directorioImagenes = process.env.UPLOAD_DIR || path.join(__dirname, '../../uploads/libros');
-          const rutaArchivo = path.join(directorioImagenes, nombreArchivo);
-          await fs.unlink(rutaArchivo).catch(e => console.warn(`Aviso: ${e.message}`));
-          console.log('Archivo físico eliminado');
+        let key = extractKeyFromUrl(urlEliminada);
+        if (!key && nombreArchivo) {
+          // Fallback para registros viejos que solo guardaron el nombre_archivo
+          key = buildKey('libros', nombreArchivo);
+        }
+        if (key) {
+          await deleteObject(key);
+          console.log(`Archivo eliminado de S3: ${key}`);
+        } else {
+          console.warn('No se pudo determinar la key de S3 para esta imagen; se omite la eliminación fisica');
         }
       } catch (err) {
-        console.warn(`No se pudo eliminar el archivo físico: ${err.message}`);
+        console.warn(`No se pudo eliminar el archivo de S3: ${err.message}`);
         // Continuar incluso si no se puede eliminar el archivo físico
       }
       
