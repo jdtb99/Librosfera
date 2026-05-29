@@ -4,7 +4,7 @@ const path = require('path');
 const AppError = require('../utils/appError');
 const { uploadBuffer, buildKey } = require('../utils/s3Client');
 
-const PREFIX_LIBROS = 'libros';
+const PREFIX_LIBROS = 'uploads/libros';
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) {

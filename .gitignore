@@ -22,3 +22,7 @@ yarn-error.log*
 #Archivos subidos por usuarios
 Backend/uploads/
 DEPLOY_NOTES.md
+RETOMAR.md
+
+# Build del frontend (artefacto generado)
+Frontend/login-app/build/
