@@ -1,11 +1,11 @@
 const { S3Client, PutObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
 
+// Sin `credentials` explícitas: el SDK usa su cadena de resolución por
+// defecto. En EC2 toma el IAM role de la instancia (instance profile
+// `librosfera-backend-profile`, ver infra/iam.tf); en local usa el perfil
+// de `aws configure` o AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY si los defines.
 const s3 = new S3Client({
-  region: process.env.AWS_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-  }
+  region: process.env.AWS_REGION
 });
 
 const BUCKET = process.env.AWS_S3_UPLOADS_BUCKET;

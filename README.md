@@ -155,7 +155,8 @@ Required environment variables (see `Backend/.env.example`):
 | `MONGO_URI` | MongoDB connection string |
 | `JWT_SECRET` / `JWT_EXPIRE` | Auth token signing secret / lifetime |
 | `EMAIL_USER` / `EMAIL_PASSWORD` | SMTP credentials for transactional email |
-| `AWS_REGION` / `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` | AWS credentials for S3 |
+| `AWS_REGION` | AWS region for S3 |
+| `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` | AWS credentials for S3 (local dev only — production uses the EC2 instance's IAM role, see `infra/`) |
 | `AWS_S3_UPLOADS_BUCKET` | Bucket name for book images |
 | `CLOUDFRONT_URL` | CDN base URL used to build public image URLs |
 | `FRONT_URL` / `BASE_URL` | Frontend and backend base URLs |

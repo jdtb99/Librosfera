@@ -1,0 +1,7 @@
+aws_region           = "us-east-1"
+my_ip                = "203.0.113.10/32" # tu IP pública actual + /32
+key_pair_name         = "librosfera-key"
+instance_type         = "t2.micro"
+create_eip            = true
+bucket_frontend_name  = "librosfera-frontend-jdtb99-2026"
+bucket_uploads_name   = "librosfera-uploads-jdtb99"

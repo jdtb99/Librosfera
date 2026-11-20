@@ -23,6 +23,7 @@ yarn-error.log*
 Backend/uploads/
 DEPLOY_NOTES.md
 RETOMAR.md
+MANTENIMIENTO.md
 
 # Build del frontend (artefacto generado)
 Frontend/login-app/build/
