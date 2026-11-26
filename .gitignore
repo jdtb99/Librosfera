@@ -24,6 +24,7 @@ Backend/uploads/
 DEPLOY_NOTES.md
 RETOMAR.md
 MANTENIMIENTO.md
+INFRA_ON_OFF.md
 
 # Build del frontend (artefacto generado)
 Frontend/login-app/build/
