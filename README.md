@@ -67,7 +67,7 @@ Everything is served under **one CloudFront distribution** with multiple origins
 
 ---
 
-## 🧰 Infrastructure as Code (Terraform)
+## Infrastructure as Code (Terraform)
 
 All of the above is codified in [`infra/`](./infra) — not written from scratch against an empty account, but built to **model infrastructure that already existed** (it was first provisioned by hand to learn the console), then reconciled into Terraform state with `terraform import`, validating every plan to make sure nothing would be destroyed or recreated unintentionally before applying anything.
 
@@ -78,7 +78,7 @@ All of the above is codified in [`infra/`](./infra) — not written from scratch
 
 ---
 
-## 🔐 Security hardening
+##  Security hardening
 
 A few concrete fixes made during this project, not just a checklist:
 
@@ -89,7 +89,7 @@ A few concrete fixes made during this project, not just a checklist:
 
 ---
 
-## 💰 Cost optimization
+##  Cost optimization
 
 - Analyzed AWS's 2024 pricing change that made **all public IPv4 addresses billable** (Elastic or ephemeral, attached or not) and concluded that an Elastic IP added no benefit for this workload — switched to the default ephemeral public IP, which costs nothing while the instance is stopped.
 - Built a repeatable **start/stop runbook**: bring the instance up only to demo or test, repoint CloudFront's `/api/*` origin to the new address with a single `terraform apply`, then stop it again — bringing a running cost of a few cents/hour down to effectively $0 at rest.
@@ -98,7 +98,7 @@ A few concrete fixes made during this project, not just a checklist:
 
 ---
 
-## 🛠️ Operations & troubleshooting
+##  Operations & troubleshooting
 
 - Maintained runbooks (`MANTENIMIENTO.md`, `INFRA_ON_OFF.md`) covering instance start/stop, SSH access, PM2/Nginx management, and a symptom → cause → fix table for recurring issues.
 - Diagnosed a backend outage down to its real root cause: logs showed a generic MongoDB connection failure, but isolating the problem with `nslookup` against both the instance's default resolver and `8.8.8.8` proved it was a **DNS SRV record resolution failure**, not a network/security-group issue — correctly pointing at the MongoDB Atlas cluster being auto-paused rather than a misconfiguration on the AWS side.
@@ -107,7 +107,7 @@ A few concrete fixes made during this project, not just a checklist:
 
 ---
 
-## 🧱 Tech stack
+## Tech stack
 
 **Cloud & infrastructure**
 - AWS: EC2 (Amazon Linux 2023), S3, CloudFront (OAC, multi-origin, custom error responses), IAM (instance roles, least-privilege policies), Security Groups, VPC (default)
@@ -121,7 +121,7 @@ A few concrete fixes made during this project, not just a checklist:
 
 ---
 
-## 🚀 Running it locally
+##  Running it locally
 
 ```bash
 git clone https://github.com/jdtb99/Librosfera.git
@@ -144,7 +144,7 @@ Required backend environment variables are documented in `Backend/.env.example`.
 
 ---
 
-## 📁 Project structure
+## Project structure
 
 ```
 Librosfera/
@@ -160,6 +160,6 @@ Librosfera/
 
 ---
 
-## 📄 License
+## License
 
 This project is part of a personal portfolio. All rights reserved.
